@@ -1,0 +1,1263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Creative Studio</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: #101426;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #a99aff;
+  text-align: center;
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 21px;
+  color: #d6ccff;
+}
+
+h3 {
+  color: #c5b8ff;
+}
+
+p {
+  color: #c7c9d6;
+  line-height: 1.5;
+}
+
+header {
+  text-align: center;
+  padding: 15px 5px;
+}
+
+.subtitle {
+  color: #aaa9c2;
+  font-size: 13px;
+}
+
+.credit-box {
+  background: linear-gradient(135deg,#29204c,#422b70);
+  border: 1px solid #7256a9;
+  padding: 16px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0 22px;
+}
+
+.credit-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #f0d77b;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+}
+
+.tool {
+  background: #1b2137;
+  border: 1px solid #343c5b;
+  padding: 18px 10px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  min-height: 105px;
+  color: white;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.tool:active {
+  transform: scale(0.97);
+  background: #30264e;
+}
+
+.tool-icon {
+  font-size: 29px;
+  display: block;
+  margin-bottom: 9px;
+}
+
+.card {
+  background: #1b2137;
+  border: 1px solid #343c5b;
+  border-radius: 15px;
+  padding: 16px;
+  margin: 15px 0;
+}
+
+label {
+  display: block;
+  color: #d7d3ef;
+  margin: 14px 0 7px;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 9px;
+  border: 1px solid #444c6b;
+  background: #11182b;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #a99aff;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background: linear-gradient(135deg,#7656d9,#a35ad8);
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+.back {
+  width: auto;
+  padding: 10px 16px;
+  background: #34304e;
+  margin: 5px 0 15px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.small {
+  font-size: 12px;
+  color: #a5a8bd;
+}
+
+.preview {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-top: 12px;
+  display: none;
+}
+
+.download {
+  background: #287d60;
+}
+
+.result {
+  margin-top: 12px;
+  color: #b9e9d0;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  color: #777d98;
+  padding: 25px 5px;
+  font-size: 12px;
+}
+
+@media(min-width:700px) {
+  body {
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME SCREEN -->
+<section id="home">
+
+<header>
+<h1>✨ AI Creative Studio</h1>
+<p class="subtitle">Your All-in-One AI Creation Platform</p>
+</header>
+
+<div class="credit-box">
+<div>
+<strong>Available Credits</strong>
+<p class="small">Your current balance</p>
+</div>
+<div class="credit-number">
+<span id="creditBalance">100</span> 💎
+</div>
+</div>
+
+<h2>🚀 Creative Tools</h2>
+
+<div class="grid">
+
+<div class="tool" onclick="showPage('video')">
+<span class="tool-icon">🎬</span>
+Video Generator
+</div>
+
+<div class="tool" onclick="showPage('image')">
+<span class="tool-icon">🖼️</span>
+Image Generator
+</div>
+
+<div class="tool" onclick="showPage('characters')">
+<span class="tool-icon">🎭</span>
+Character Studio
+</div>
+
+<div class="tool" onclick="showPage('script')">
+<span class="tool-icon">📖</span>
+Script to Video
+</div>
+
+<div class="tool" onclick="showPage('animation')">
+<span class="tool-icon">🎨</span>
+Animation Studio
+</div>
+
+<div class="tool" onclick="showPage('movie')">
+<span class="tool-icon">🎞️</span>
+Movie Maker
+</div>
+
+<div class="tool" onclick="showPage('editor')">
+<span class="tool-icon">✂️</span>
+Video Editor
+</div>
+
+<div class="tool" onclick="showPage('projects')">
+<span class="tool-icon">📁</span>
+My Projects
+</div>
+
+<div class="tool" onclick="showPage('topup')">
+<span class="tool-icon">💎</span>
+Credit Top-up
+</div>
+
+<div class="tool" onclick="showPage('settings')">
+<span class="tool-icon">⚙️</span>
+Settings
+</div>
+
+</div>
+
+<footer>
+AI Creative Studio © 2026
+</footer>
+
+</section>
+
+<!-- VIDEO GENERATOR -->
+<section id="video" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+
+<h2>🎬 AI Video Generator</h2>
+
+<div class="card">
+
+<label>Video Generation Type</label>
+<select id="videoType">
+<option>Text to Video</option>
+<option>Image to Video</option>
+<option>Script to Video</option>
+</select>
+
+<label>Enter Your Video Prompt</label>
+<textarea id="videoPrompt" placeholder="Describe your video scene in detail..."></textarea>
+
+<label>Upload Reference Image (Optional)</label>
+<input type="file" id="videoImage" accept="image/*">
+
+<img id="videoImagePreview" class="preview" alt="Video reference preview">
+
+<label>Character Name (Optional)</label>
+<input type="text" id="videoCharacter" placeholder="Enter character name">
+
+<label>Video Duration</label>
+<select id="videoDuration">
+<option value="4">4 Seconds</option>
+<option value="6">6 Seconds</option>
+<option value="8">8 Seconds</option>
+<option value="10" selected>10 Seconds</option>
+<option value="20">20 Seconds</option>
+<option value="30">30 Seconds</option>
+<option value="40">40 Seconds</option>
+<option value="50">50 Seconds</option>
+<option value="60">1 Minute</option>
+<option value="120">2 Minutes</option>
+<option value="180">3 Minutes</option>
+<option value="300">5 Minutes</option>
+<option value="600">10 Minutes</option>
+<option value="900">15 Minutes</option>
+<option value="1200">20 Minutes</option>
+</select>
+
+<label>Video Resolution</label>
+<select id="videoResolution">
+<option>360p</option>
+<option>480p</option>
+<option selected>720p</option>
+<option>1080p</option>
+<option>2K</option>
+<option>4K</option>
+</select>
+
+<label>Aspect Ratio</label>
+<select id="videoRatio">
+<option>16:9 Landscape</option>
+<option>9:16 Portrait</option>
+<option>1:1 Square</option>
+<option>4:3 Standard</option>
+</select>
+
+<label>Frames Per Second</label>
+<select id="videoFPS">
+<option>24 FPS</option>
+<option>30 FPS</option>
+<option>60 FPS</option>
+</select>
+
+<label>Visual Style</label>
+<select id="videoStyle">
+<option>3D Cinematic</option>
+<option>3D Cartoon</option>
+<option>Realistic</option>
+<option>Anime</option>
+<option>Fantasy</option>
+<option>Pixar Style</option>
+<option>Documentary</option>
+</select>
+
+<label>Voice</label>
+<select id="videoVoice">
+<option>No Voice</option>
+<option>Male Urdu Voice</option>
+<option>Female Urdu Voice</option>
+<option>Male English Voice</option>
+<option>Female English Voice</option>
+<option>Child Voice</option>
+</select>
+
+<label>Language</label>
+<select id="videoLanguage">
+<option>Urdu</option>
+<option>English</option>
+<option>Hindi</option>
+<option>Arabic</option>
+</select>
+
+<label>Background Music</label>
+<select id="videoMusic">
+<option>Automatic</option>
+<option>Cinematic</option>
+<option>Emotional</option>
+<option>Action</option>
+<option>Funny</option>
+<option>None</option>
+</select>
+
+<label>Sound Effects</label>
+<select id="videoSound">
+<option>Automatic</option>
+<option>Action Sounds</option>
+<option>Nature Sounds</option>
+<option>Cartoon Sounds</option>
+<option>None</option>
+</select>
+
+<button onclick="generateVideo()">
+✨ Generate Video
+</button>
+
+<div id="videoResult" class="result"></div>
+
+</div>
+</section>
+ 
+<!-- IMAGE GENERATOR -->
+<section id="image" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>🖼️ AI Image Generator</h2>
+
+<div class="card">
+
+<label>Image Prompt</label>
+<textarea id="imagePrompt" placeholder="Describe your image in detail..."></textarea>
+
+<label>Image Style</label>
+<select id="imageStyle">
+<option>3D Cartoon</option>
+<option>3D Cinematic</option>
+<option>Realistic</option>
+<option>Anime</option>
+<option>Fantasy</option>
+<option>Watercolor</option>
+</select>
+
+<label>Aspect Ratio</label>
+<select id="imageRatio">
+<option>16:9</option>
+<option>9:16</option>
+<option>1:1</option>
+<option>4:3</option>
+</select>
+
+<button id="generateImageButton" onclick="generateImage()">
+✨ Generate Image
+</button>
+
+<p id="imageResult" class="result"></p>
+
+<img id="generatedImage" class="preview" alt="Generated image">
+
+<button id="downloadImageButton" class="download hidden"
+onclick="downloadGeneratedImage()">
+⬇️ Download Image
+</button>
+
+</div>
+</section>
+
+
+<!-- CHARACTER STUDIO -->
+<section id="characters" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>🎭 Character Studio</h2>
+
+<div class="card">
+
+<label>Character Name</label>
+<input id="characterName" placeholder="Enter character name">
+
+<label>Character Role</label>
+<select id="characterRole">
+<option>Main Character</option>
+<option>Supporting Character</option>
+<option>Villain Character</option>
+<option>Friend Character</option>
+</select>
+
+<label>Character Type</label>
+<select id="characterType">
+<option>3D Cartoon</option>
+<option>3D Cinematic</option>
+<option>Anime</option>
+<option>Realistic</option>
+<option>Fantasy</option>
+<option>Animal</option>
+</select>
+
+<label>Upload Character Image</label>
+<input type="file" id="characterUpload" accept="image/*">
+
+<img id="characterPreview" class="preview" alt="Character preview">
+
+<label>Character Voice</label>
+<select id="characterVoice">
+<option>Male Urdu Voice</option>
+<option>Female Urdu Voice</option>
+<option>Child Voice</option>
+<option>Deep Cinematic Voice</option>
+<option>Funny Voice</option>
+</select>
+
+<button onclick="saveCharacter()">💾 Save Character</button>
+
+<p id="characterResult" class="result"></p>
+
+</div>
+
+<div class="card">
+<h3>My Characters</h3>
+<div id="characterList">No saved characters yet.</div>
+</div>
+
+</section>
+
+
+<!-- SCRIPT TO VIDEO -->
+<section id="script" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>📖 Script to Video</h2>
+
+<div class="card">
+
+<label>Enter Your Complete Story</label>
+<textarea id="story" placeholder="Write your complete story here..."></textarea>
+
+<label>Story Language</label>
+<select id="storyLanguage">
+<option>Urdu</option>
+<option>Hindi</option>
+<option>English</option>
+</select>
+
+<label>Movie Style</label>
+<select id="storyStyle">
+<option>3D Cinematic</option>
+<option>3D Cartoon</option>
+<option>Anime</option>
+<option>Realistic</option>
+</select>
+
+<button onclick="demoMessage('Script to Video')">
+🎬 Create Movie Scenes
+</button>
+
+<p class="small">
+Automatic story-to-video engine is not connected yet.
+</p>
+
+</div>
+</section>
+
+
+<!-- ANIMATION STUDIO -->
+<section id="animation" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>🎨 Animation Studio</h2>
+
+<div class="card">
+
+<label>Animation Type</label>
+<select id="animationType">
+<option>2D Animation</option>
+<option>3D Animation</option>
+<option>3D Cinematic</option>
+<option>Anime</option>
+<option>Stop Motion</option>
+</select>
+
+<label>Animation Idea</label>
+<textarea id="animationPrompt" placeholder="Describe your animation..."></textarea>
+
+<button onclick="demoMessage('Animation Studio')">
+✨ Create Animation
+</button>
+
+<p class="small">
+Animation engine is not connected yet.
+</p>
+
+</div>
+</section>
+
+
+<!-- MOVIE MAKER -->
+<section id="movie" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>🎞️ Movie Maker</h2>
+
+<div class="card">
+
+<label>Movie Name</label>
+<input id="movieName" placeholder="Enter movie name">
+
+<label>Movie Story</label>
+<textarea id="movieStory" placeholder="Write your movie story..."></textarea>
+
+<label>Movie Duration</label>
+<select id="movieDuration">
+<option>2 Minutes</option>
+<option>5 Minutes</option>
+<option>10 Minutes</option>
+<option>15 Minutes</option>
+<option>20 Minutes</option>
+</select>
+
+<button onclick="demoMessage('Movie Maker')">
+🎬 Start Movie Project
+</button>
+
+</div>
+</section>
+
+
+<!-- VIDEO EDITOR -->
+<section id="editor" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>✂️ Video Editor</h2>
+
+<div class="card">
+
+<label>Select Video</label>
+<input type="file" id="editorVideo" accept="video/*">
+
+<label>Editing Style</label>
+<select id="editingStyle">
+<option>Basic Editing</option>
+<option>Cinematic</option>
+<option>Color Enhancement</option>
+<option>Slow Motion</option>
+</select>
+
+<button onclick="demoMessage('Video Editor')">
+✂️ Open Editor
+</button>
+
+<p class="small">
+Professional editing engine is not connected yet.
+</p>
+
+</div>
+</section>
+
+
+<!-- MY PROJECTS -->
+<section id="projects" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>📁 My Projects</h2>
+
+<div class="card">
+<div id="projectList">
+No projects saved yet.
+</div>
+</div>
+
+</section>
+
+
+<!-- CREDIT TOP UP -->
+<section id="topup" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>💎 Credit Top-up</h2>
+
+<div class="card">
+
+<h3>Your Credit Balance</h3>
+<p><strong id="topupBalance">100</strong> Credits</p>
+
+<p>
+You will be able to purchase additional credits through a secure payment system.
+</p>
+
+<p class="small">
+Payment gateway is not connected yet. No payment will be taken here.
+</p>
+
+<button onclick="demoMessage('Credit Top-up')">
+💎 Top-up Coming Soon
+</button>
+
+</div>
+</section>
+
+
+<!-- SETTINGS -->
+<section id="settings" class="hidden">
+
+<button class="back" onclick="goHome()">← Home</button>
+<h2>⚙️ Settings</h2>
+
+<div class="card">
+
+<label>App Language</label>
+<select id="appLanguage">
+<option>English</option>
+<option>Urdu</option>
+<option>Hindi</option>
+</select>
+
+<label>App Theme</label>
+<select id="appTheme">
+<option>Dark</option>
+<option>Light</option>
+</select>
+
+<p class="small">
+More account and application settings will be added later.
+</p>
+
+</div>
+</section>
+
+<!-- JAVASCRIPT START -->
+<script>
+
+// ==================================
+// AI CREATIVE STUDIO CONFIGURATION
+// ==================================
+
+const WORKER_URL =
+"https://ai-creative-studio.uzairahmadii804.workers.dev";
+
+
+// ==================================
+// PAGE NAVIGATION
+// ==================================
+
+function showPage(pageId) {
+
+  document.querySelectorAll("body > section").forEach(section => {
+    section.classList.add("hidden");
+  });
+
+  const selectedPage = document.getElementById(pageId);
+
+  if (selectedPage) {
+    selectedPage.classList.remove("hidden");
+  }
+
+  if (pageId === "characters") {
+    renderCharacters();
+  }
+
+  if (pageId === "topup") {
+    updateCredits();
+  }
+
+}
+
+function goHome() {
+
+  document.querySelectorAll("body > section").forEach(section => {
+    section.classList.add("hidden");
+  });
+
+  document.getElementById("home").classList.remove("hidden");
+
+  updateCredits();
+}
+
+
+// ==================================
+// CREDIT SYSTEM
+// ==================================
+
+function getCredits() {
+
+  let credits = localStorage.getItem("aics_credits");
+
+  if (credits === null) {
+    credits = 100;
+    localStorage.setItem("aics_credits", credits);
+  }
+
+  return Number(credits);
+}
+
+function updateCredits() {
+
+  const credits = getCredits();
+
+  const balance = document.getElementById("creditBalance");
+  const topupBalance = document.getElementById("topupBalance");
+
+  if (balance) balance.textContent = credits;
+
+  if (topupBalance) topupBalance.textContent = credits;
+}
+
+function spendCredits(amount) {
+
+  const current = getCredits();
+
+  if (current < amount) {
+    alert("Not enough credits. Please top up.");
+    return false;
+  }
+
+  localStorage.setItem("aics_credits", current - amount);
+
+  updateCredits();
+
+  return true;
+}
+
+
+// ==================================
+// VIDEO GENERATOR COST ESTIMATOR
+// ==================================
+
+function generateVideo() {
+
+  const prompt =
+    document.getElementById("videoPrompt").value.trim();
+
+  const duration =
+    Number(document.getElementById("videoDuration").value);
+
+  const result =
+    document.getElementById("videoResult");
+
+  if (!prompt) {
+    alert("Please enter your video prompt.");
+    return;
+  }
+
+  const costs = {
+    4: 8,
+    6: 12,
+    8: 16,
+    10: 20,
+    20: 40,
+    30: 60,
+    40: 80,
+    50: 100,
+    60: 120,
+    120: 240,
+    180: 360,
+    300: 400,
+    600: 650,
+    900: 850,
+    1200: 1000
+  };
+
+  const cost = costs[duration] || 20;
+
+  result.textContent =
+    "Estimated cost: " + cost +
+    " credits. Video generation API is not connected yet. No credits have been deducted.";
+
+}
+
+
+// ==================================
+// IMAGE GENERATOR
+// ==================================
+
+let generatedImageURL = null;
+
+async function generateImage() {
+
+  const prompt =
+    document.getElementById("imagePrompt").value.trim();
+
+  const style =
+    document.getElementById("imageStyle").value;
+
+  const ratio =
+    document.getElementById("imageRatio").value;
+
+  const result =
+    document.getElementById("imageResult");
+
+  const button =
+    document.getElementById("generateImageButton");
+
+  const image =
+    document.getElementById("generatedImage");
+
+  const downloadButton =
+    document.getElementById("downloadImageButton");
+
+  if (!prompt) {
+    alert("Please enter an image prompt.");
+    return;
+  }
+
+  if (getCredits() < 10) {
+    alert("Not enough credits. Please top up.");
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Generating Image...";
+  result.textContent = "Please wait. Creating your image...";
+
+  try {
+
+    const response = await fetch(WORKER_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+
+        prompt:
+          prompt + ", " + style +
+          " style, aspect ratio " + ratio
+
+      })
+
+    });
+
+    if (!response.ok) {
+
+      let errorMessage = "Image generation failed.";
+
+      try {
+        const errorData = await response.json();
+        errorMessage =
+          errorData.error || errorData.message || errorMessage;
+      } catch (e) {}
+
+      throw new Error(errorMessage);
+    }
+
+    const contentType =
+      response.headers.get("content-type") || "";
+
+    let newImageURL = null;
+
+    if (
+      contentType.includes("application/json") ||
+      contentType.includes("text/json")
+    ) {
+
+      const data = await response.json();
+
+      if (data.success === false) {
+        throw new Error(data.error || "Image generation failed.");
+      }
+
+      const imageData = data.image || data.imageUrl;
+
+      if (!imageData) {
+        throw new Error("No image was returned by the server.");
+      }
+
+      newImageURL = imageData;
+
+    } else {
+
+      const blob = await response.blob();
+
+      if (!blob.size) {
+        throw new Error("The server returned an empty image.");
+      }
+
+      newImageURL = URL.createObjectURL(blob);
+
+    }
+
+    image.src = newImageURL;
+    image.style.display = "block";
+
+    if (
+      generatedImageURL &&
+      generatedImageURL.startsWith("blob:")
+    ) {
+      URL.revokeObjectURL(generatedImageURL);
+    }
+
+    generatedImageURL = newImageURL;
+
+    downloadButton.classList.remove("hidden");
+
+    spendCredits(10);
+
+    result.textContent =
+      "Image generated successfully! 10 credits deducted.";
+
+  } catch (error) {
+
+    result.textContent =
+      "Error: " + error.message;
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent = "✨ Generate Image";
+
+  }
+
+}
+
+
+// ==================================
+// IMAGE DOWNLOAD
+// ==================================
+
+function downloadGeneratedImage() {
+
+  if (!generatedImageURL) {
+    alert("No generated image available.");
+    return;
+  }
+
+  const link = document.createElement("a");
+
+  link.href = generatedImageURL;
+  link.download = "AI-Creative-Studio-Image.png";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+}
+
+
+// ==================================
+// VIDEO IMAGE PREVIEW
+// ==================================
+
+document
+  .getElementById("videoImage")
+  .addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    const preview =
+      document.getElementById("videoImagePreview");
+
+    if (!file) return;
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+
+  });
+
+
+// ==================================
+// CHARACTER IMAGE PREVIEW
+// ==================================
+
+document
+  .getElementById("characterUpload")
+  .addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    const preview =
+      document.getElementById("characterPreview");
+
+    if (!file) return;
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+
+  });
+
+
+// ==================================
+// CHARACTER SAVE SYSTEM
+// ==================================
+
+function getCharacters() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem("aics_characters") || "[]"
+    );
+
+  } catch (error) {
+
+    return [];
+
+  }
+
+}
+
+function saveCharacter() {
+
+  const name =
+    document.getElementById("characterName").value.trim();
+
+  const role =
+    document.getElementById("characterRole").value;
+
+  const type =
+    document.getElementById("characterType").value;
+
+  const voice =
+    document.getElementById("characterVoice").value;
+
+  const file =
+    document.getElementById("characterUpload").files[0];
+
+  const result =
+    document.getElementById("characterResult");
+
+  if (!name) {
+    alert("Please enter character name.");
+    return;
+  }
+
+  if (file) {
+
+    result.textContent =
+      "Character image upload saving is not available yet. Save the character without the image.";
+
+    return;
+
+  }
+
+  const characters = getCharacters();
+
+  characters.push({
+    name: name,
+    role: role,
+    type: type,
+    voice: voice
+  });
+
+  try {
+
+    localStorage.setItem(
+      "aics_characters",
+      JSON.stringify(characters)
+    );
+
+  } catch (error) {
+
+    alert("Could not save character.");
+    return;
+
+  }
+
+  document.getElementById("characterName").value = "";
+
+  result.textContent =
+    "Character saved successfully!";
+
+  renderCharacters();
+
+}
+
+
+// ==================================
+// DISPLAY SAVED CHARACTERS
+// ==================================
+
+function renderCharacters() {
+
+  const list =
+    document.getElementById("characterList");
+
+  const characters = getCharacters();
+
+  list.replaceChildren();
+
+  if (!characters.length) {
+
+    list.textContent = "No saved characters yet.";
+    return;
+
+  }
+
+  characters.forEach((character, index) => {
+
+    const item = document.createElement("div");
+
+    item.className = "card";
+
+    const name = document.createElement("h3");
+    name.textContent = character.name;
+
+    const details = document.createElement("p");
+
+    details.textContent =
+      character.role + " | " +
+      character.type + " | " +
+      character.voice;
+
+    const remove = document.createElement("button");
+
+    remove.textContent = "Delete Character";
+
+    remove.onclick = function() {
+      deleteCharacter(index);
+    };
+
+    item.appendChild(name);
+    item.appendChild(details);
+    item.appendChild(remove);
+
+    list.appendChild(item);
+
+  });
+
+}
+
+
+// ==================================
+// DELETE CHARACTER
+// ==================================
+
+function deleteCharacter(index) {
+
+  if (!confirm("Delete this character?")) {
+    return;
+  }
+
+  const characters = getCharacters();
+
+  characters.splice(index, 1);
+
+  localStorage.setItem(
+    "aics_characters",
+    JSON.stringify(characters)
+  );
+
+  renderCharacters();
+
+}
+
+
+// ==================================
+// DEMO PLACEHOLDER MESSAGE
+// ==================================
+
+function demoMessage(feature) {
+
+  alert(
+    feature +
+    " is included in the interface. Its generation engine is not connected yet."
+  );
+
+}
+
+
+// ==================================
+// INITIAL APP SETUP
+// ==================================
+
+updateCredits();
+renderCharacters();
+
+</script>
+
+</body>
+</html>
